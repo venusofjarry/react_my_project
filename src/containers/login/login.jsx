@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import { Form, Input, Button } from 'antd'
+import {connect} from 'react-redux'
+import {createDemo1Action, createDemo2Action} from '../../redux/action_creator/test_action'
 // @ant-design/icons库中没有Icon了，可能已经弃用了，现在使用单独的组件渲染icon图标。而且这个图标可以自定义颜色，我们可以使用style指定图标颜色
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './css/login.less'
@@ -7,7 +9,7 @@ import logo from './imgs/logo.png'
 
 
 
-export default class Login extends Component{
+ class Login extends Component{
 
   // onFinish和3版本的onSubmit差不多，都负责统一性验证，但是onFinish功能更强大：它已经支持自动查看各个字段的验证结果，有一个没有通过，则不会发送请求，但是，他这个函数只接收一个参数：value，也就是符合规则的字段的值
     onFinish = (values) => {
@@ -84,6 +86,13 @@ export default class Login extends Component{
     }
 }
 
+export default connect(
+  state => ({demo:state.test}),
+  {
+    demo1: createDemo1Action,
+    demo2: createDemo1Action
+  }
+)(Login)
 
 // 知识扩展：react是声明式编码，jquery是命令式编码，打个比喻：react就好比聪明的人，别人和他说我好累啊，它就会帮忙做事，或者搬来东西吃，但是jquery就比较笨，踢一脚动一下
 
